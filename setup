@@ -1,0 +1,22 @@
+#!/usr/bin/env sh
+
+# sh does not support popd - bash does
+# pushd .
+saveDir=$PWD
+
+echo > input.txt
+
+groovyVersion=2.4.7
+groovyJarName="groovy-all-${groovyVersion}.jar"
+sUrl="http://central.maven.org/maven2/org/codehaus/groovy/groovy-all/${groovyVersion}/groovy-all-${groovyVersion}.jar";
+
+wget -qO- "$sUrl" > "$groovyJarName"
+
+rm -r groovyAllExploded
+mkdir groovyAllExploded
+
+cd groovyAllExploded
+unzip "../${groovyJarName}"
+
+# popd
+cd "$saveDir"

@@ -1,0 +1,7 @@
+cd /home/ltoenjes/exp/github/GroovyThin247Exp.git/trunk
+
+### add unknown files to version control
+svn status |grep '^?' |awk '{ print $2 }' |xargs svn add
+
+### commit changes
+svn ci --username faroe228 -m lpt
