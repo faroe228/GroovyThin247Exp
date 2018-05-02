@@ -60,6 +60,8 @@ cmdsList.eachWithIndex { cmds, int idx ->
 
 // cat traces/*.err  |grep groovyAllExploded |grep open > trace.txt
 
+// lpt todo see if bash can be replaced with sh
+
 def ps = ['bash', '-c', '''   
 
 	cat traces/*.err  |grep groovyAllExploded |grep open > trace.txt
