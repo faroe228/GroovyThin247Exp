@@ -1,0 +1,45 @@
+###
+### start docker container
+###
+
+docker run --rm -it \
+  --user root --security-opt seccomp:unconfined  \
+  gradle:jdk8-alpine sh
+  
+###
+### now inside container as root
+###
+
+apk update; apk add strace bash tree;
+
+### we are done being root
+su gradle
+cd $HOME
+
+wget https://github.com/faroe228/GroovyThin247Exp/archive/master.zip
+unzip master.zip
+cd `ls |grep -v 'master.zip'`
+
+./blast 
+./c
+./setup
+
+time bin/gg -v
+###  bin/gg -v takes about 19 sec on first run (downloading groovy all jar)
+
+bin/gg generateTraces.groovy
+bin/gg anTrace.groovy
+
+time ./gg -v
+
+###
+### done - ./gg executable created
+###
+
+### we are currently user gradle
+### exit
+### we are now root
+### next exit will exit docker container
+### exit
+
+
