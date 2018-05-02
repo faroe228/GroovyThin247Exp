@@ -1,6 +1,8 @@
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+//           /home/ltoenjes/exp/github/GroovyThin247Exp.git/trunk/anTrace.groovy
+// http://192.168.1.67:5666/exp/github/GroovyThin247Exp.git/trunk/anTrace.groovy
 
 /////////////////////////
 
@@ -8,6 +10,7 @@ File traceFile = new File( "trace.txt" );
 
 def lstA = [];
 
+// todo better handling of different strace outputs in various containers
 traceFile.eachLine { ln -> 
 	def tkrA = ln.tokenize(' ');
 	// println tkrA[2];
@@ -15,13 +18,17 @@ traceFile.eachLine { ln ->
 	lstA << tkrB[1];
 }
 
+// reluctantly adding findAll filter to tolerate some slop
+// because of some output differences of strace in different containers  
+lstA = lstA.findAll{ File fl = new File(it);  fl.isFile() && fl.exists() }
+
 lstA.sort();
 lstA = lstA.unique();
+
 // assert lstA.size() == lstA.unique().size() ;
 
 def fs = lstA.collect { new File( it ) }
 
-// String sToken1 = '/home/ltoenjes/exp/rnd/444/groovyAllExploded/';
 String sToken1 = new File('.').canonicalFile.path + '/groovyAllExploded/' ;
 
 File targetJarFile = new File( "gg.jar" );
@@ -35,7 +42,7 @@ fs.each { f ->
 	assert f.isFile();
 	String sf = f.toString();
 	String sa = sf - sToken1;
-	//println sa;
+	// println sa;
 	String thePath = sa ;
 	File   theFile = f  ;
 	
@@ -46,7 +53,6 @@ fs.each { f ->
 	zos.write( bs, 0 , sz  )
 	// zos.write( bs );
 	zos.closeEntry();
-	
 }
 
 zos.close();
