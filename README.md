@@ -6,7 +6,7 @@
 
 ./setup
 
-bin/gg bin/gg generateTraces.groovy
+bin/gg generateTraces.groovy
 
 bin/gg anTrace.groovy
 
