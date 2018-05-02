@@ -6,7 +6,7 @@
 # gg is a lighter wrapper around groovy.ui.GroovyMain found in groovy-all-x.y.z.jar
 # gg is basically a slimmed down groovy-all-x.y.z.jar with just enough files
 # to run a loader class (groovy code compiled with groovyc).
-# strace is used to identify which files are actually needed (java -verbose:class did not supply enough info)
+# strace is used to identify which files are needed (java -verbose:class did not supply enough info)
 # to run the the loader class (which cuts the jar bloat from about 7meg to 1meg).
 # The loader class downloads a full groovy-all-x.y.z.jar one time and adds it
 # to the system class loader.
